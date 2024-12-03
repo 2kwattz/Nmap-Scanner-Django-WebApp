@@ -20,9 +20,15 @@ def run_nmap(target,scanType,port):
         command = ["nmap", "-A", target]
     elif scanType == "scanPort":
         command = ["nmap", "-p", port, target]
-    
+
+        
+
     result = subprocess.run(command, capture_output=True, text=True)
-    return result.stdout
+    if "192" in target:
+        result.stdout = "You are trying to scan our server. Dont Try to breach our system -_- "
+        return result.stdout
+    else:
+        return result.stdout
 
 def index(request):
     # data = {

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}  <!-- Add this line -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <header class="bg-[#1a1d26] text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+          <div class="text-2xl font-bold">Nmap Scanner</div>
+          <nav class="hidden md:block">
+            <ul class="flex space-x-6">
+              <li><a href="/" class="hover:text-blue-300">Home</a></li>
+              <li><a href="#nmapScannerForm" class="hover:text-blue-300">Services</a></li>
+              <li><a target="_blank" href="https://github.com/2kwattz" class="hover:text-blue-300">My Github</a></li>
+              <li><a href="contactForm/" class="hover:text-blue-300">Contact</a></li>
+            </ul>
+          </nav>
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button id="hamburger" class="text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+          <ul class="space-y-4 py-4">
+            <li><a href="#" class="block px-6 py-2 hover:text-blue-300">Home</a></li>
+            <li><a href="#nmapScannerForm" class="block px-6 py-2 hover:text-blue-300">Service</a></li>
+            <li><a target="_blank" href="https://github.com/2kwattz" class="block px-6 py-2 hover:text-blue-300">My Github</a></li>
+            <li><a href="contactForm/" class="block px-6 py-2 hover:text-blue-300">Contact</a></li>
+
+          </ul>
+        </div>
+      </header>
+      
+      <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+      
+        hamburger.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      </script>
+      
+      <section class="relative w-full h-auto bg-gradient-to-r from-green-800 via-gray-900 to-black text-white flex justify-center items-center py-12 sm:py-16 md:py-24">
+        <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://cdn.pixabay.com/photo/2021/01/02/12/39/lock-5881443_1280.jpg');"></div>
+        <div class="relative z-10 text-center w-full max-w-screen-lg px-1 sm:px-6 md:px-8">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 sm:mb-6">
+            Nmap Scanner at your fingertips
+          </h1>
+          <p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8">
+            Scan and analyze IP addresses with ease. Stay informed and stay secure
+          </p>
+          <a href="#features" class="inline-block bg-green-500 hover:bg-green-400 text-white font-semibold py-3 px-6 rounded-lg text-base sm:text-lg">
+            Discover More
+          </a>
+        </div>
+      </section>
+      
+     
+      
+      
+
+    <!-- {% for contacts in ContactDetails%}
+
+    <div style="background-color: bisque; padding: 20px;"> {{contacts.fullName}} </div>
+
+    {% endfor %} -->
+    <!-- <p> Available Ports: {{available_ports}}</p>
+
+    <p> Ports and their uses</p>
+
+    {% for details in port_details %}
+    <p> {{details.Port}} {{details.WebApp}}  </p>
+    {% endfor %}
+
+    <table border="1" cellPadding="10"> 
+        <tr>
+            <th>Port Name</th>
+            <th> WebApp</th>
+        </tr>
+        {% for details in port_details %}
+
+        <tr>
+            <td> {{details.Port}} </td>
+            <td> {{details.WebApp}} </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+    <p> Test Numbers </p> 
+    
+    {% if numbers|length > 0 %}
+    {% for n in numbers %}
+    {% if n > 50 %}
+    <p> {{n}} </p>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <p> No numeric data found </p>
+    {% endif %} -->
+
+    <section class="bg-gradient-to-r from-teal-700 via-gray-800 to-teal-700 text-white min-h-screen flex justify-center items-center py-12">
+        <div class="bg-[#121212] p-8 rounded-lg shadow-xl w-full max-w-4xl">
+            <h1 class="text-3xl font-extrabold text-center mb-6">Nmap Scanner</h1>
+            
+            <!-- Form -->
+            <form method="POST" id="nmapScannerForm" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- IP Address Input -->
+                <div class="flex flex-col">
+                    <label for="ipAddress" class="text-lg font-semibold">Enter Target IP Address:</label>
+                    <input type="text" name="ipAddress" id="ipAddress" class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g. 192.168.1.1" required>
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="port" class="text-lg font-semibold">Enter Target Port (Specifically for Port Scanning.Default Null):</label>
+                    <input type="text" name="port" id="port" class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g. 80,443,3000" required>
+                </div>
+
+    
+                <!-- Scan Type Dropdown -->
+                <div class="flex flex-col">
+                    <label for="scanType" class="text-lg font-semibold">Select Scan Type:</label>
+                    <select name="scanType" id="scanType" class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="defaultPingScan">Default Ping Scan</option>
+                        <option value="scanPort">Scan a Single Port</option>
+                        <option value="scanPortRange">Scan Port Range</option>
+                        <option value="tcpConnectionScan">TCP Connection Scan</option>
+                        <option value="aggressiveScan">Aggressive Scan</option>
+                        <option value="disablePingScan">Disable Ping Scan</option>
+                        <option value="verboseOutput">Verbose Output</option>
+                    </select>
+                </div>
+    
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-6 rounded-lg w-full mt-4">Scan Target</button>
+                </div>
+            </form>
+    
+            <!-- Terminal Style Output -->
+            <div class="mt-8">
+                <div class="bg-black text-green-400 p-4 rounded-lg text-sm font-mono h-40 overflow-y-auto">
+                    <p id="output-box">
+                        {% if response %}
+                        {{ response }}
+                        {% else %}
+                        Scan results will appear here...
+                        {% endif %}
+                        <br></p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-sm text-center text-gray-400">
+              <p>
+                  By using this Nmap Scanner, you agree to take full responsibility for your actions. Ensure that you only scan networks and devices you have explicit permission to access. Unauthorized scanning may be illegal and unethical.
+              </p>
+          </div>
+        </div>
+    </section>
+
+
+
+
+    <footer class="bg-[#121212] text-white py-6">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Text Content -->
+            <div class="text-center md:text-left">
+                <p class="text-lg font-semibold">Nmap Scanner</p>
+                <p class="text-sm">Developed by <a href="https://github.com/2kwattz" target="_blank" class="text-green-400 hover:text-green-300">Roshan Bhatia</a></p>
+            </div>
+            
+            <!-- Social Links -->
+            <div class="flex space-x-6">
+                <!-- GitHub Icon -->
+                <a href="https://github.com/2kwattz" target="_blank" class="text-green-400 hover:text-green-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+                        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.418 2.868 8.167 6.84 9.488.5.092.68-.215.68-.478 0-.237-.008-.869-.013-1.707-2.784.612-3.374-1.347-3.374-1.347-.454-1.15-1.11-1.456-1.11-1.456-.907-.618.069-.607.069-.607 1.003.069 1.528 1.035 1.528 1.035.889 1.517 2.334 1.078 2.905.826.092-.645.348-1.078.634-1.326-2.667-.301-5.467-1.333-5.467-5.928 0-1.31.47-2.378 1.243-3.215-.124-.302-.537-1.524.115-3.173 0 0 1.008-.323 3.303 1.232 1.235-.343 2.552-.516 3.868-.517 1.316.001 2.634.174 3.868.517 2.295-1.555 3.303-1.232 3.303-1.232.652 1.649.24 2.871.115 3.173.773.837 1.243 1.905 1.243 3.215 0 4.611-2.805 5.623-5.481 5.924.358.309.682.917.682 1.849 0 1.338-.008 2.431-.013 2.759 0 .267.178.574.68.478 3.972-1.321 6.84-5.07 6.84-9.488 0-5.52-4.48-10-10-10z"/>
+                    </svg>
+                </a>
+                <!-- Instagram Icon -->
+                <a href="https://instagram.com/2kwattz" target="_blank" class="text-green-400 hover:text-green-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+                        <path d="M12 2.163c3.404 0 6.139 2.735 6.139 6.139s-2.735 6.139-6.139 6.139S5.861 11.406 5.861 7.302 8.596 2.163 12 2.163zM5.861 7.302c0-3.404 2.735-6.139 6.139-6.139s6.139 2.735 6.139 6.139-2.735 6.139-6.139 6.139S5.861 11.406 5.861 7.302zm-3.861 0C2 3.262 4.987 0 8.972 0h6.056c3.985 0 6.972 3.262 6.972 7.302v9.396c0 4.042-2.987 7.302-6.972 7.302H8.972c-3.985 0-6.972-3.262-6.972-7.302V7.302zM12 19.563c2.357 0 4.28-1.885 4.28-4.2s-1.923-4.2-4.28-4.2-4.28 1.885-4.28 4.2 1.923 4.2 4.28 4.2zM3.861 7.302c0-3.404 2.735-6.139 6.139-6.139s6.139 2.735 6.139 6.139-2.735 6.139-6.139 6.139S5.861 11.406 5.861 7.302z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    
+</body>
+
+</html>

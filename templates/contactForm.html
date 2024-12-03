@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- Add Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-green-900 via-black to-blue-900 text-white min-h-screen">
+
+    <header class="bg-[#1a1d26] text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+          <div class="text-2xl font-bold">Nmap Scanner</div>
+          <nav class="hidden md:block">
+            <ul class="flex space-x-6">
+              <li><a href="/" class="hover:text-blue-300">Home</a></li>
+              <li><a href="#nmapScannerForm" class="hover:text-blue-300">Services</a></li>
+              <li><a target="_blank" href="https://github.com/2kwattz" class="hover:text-blue-300">My Github</a></li>
+              <li><a href="#" class="hover:text-blue-300">Contact</a></li>
+            </ul>
+          </nav>
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button id="hamburger" class="text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+          <ul class="space-y-4 py-4">
+            <li><a href="/" class="block px-6 py-2 hover:text-blue-300">Home</a></li>
+            <li><a href="#nmapScannerForm" class="block px-6 py-2 hover:text-blue-300">Service</a></li>
+            <li><a target="_blank" href="https://github.com/2kwattz" class="block px-6 py-2 hover:text-blue-300">My Github</a></li>
+            <li><a href="#" class="block px-6 py-2 hover:text-blue-300">Contact</a></li>
+
+          </ul>
+        </div>
+      </header>
+      
+      <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+      
+        hamburger.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      </script>
+
+
+    <section class="flex justify-center items-center py-12">
+        <div class="bg-[#121212] p-8 rounded-lg shadow-xl w-full max-w-4xl">
+            <h1 class="text-3xl font-extrabold text-center mb-6">Contact Us</h1>
+
+            <!-- Contact Form -->
+            <form method="POST" action="{% url 'contactForm' %}" class="space-y-6">
+                {% csrf_token %}
+
+                <!-- Full Name Input -->
+                <div class="flex flex-col">
+                    <label for="fullName" class="text-lg font-semibold">Your Name:</label>
+                    <input type="text" name="fullName" id="fullName" placeholder="Enter your full name"
+                        class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                        required>
+                </div>
+                
+                <!-- Email Input -->
+                <div class="flex flex-col">
+                    <label for="email" class="text-lg font-semibold">Email Address:</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email"
+                        class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                        required>
+                </div>
+                <!-- Subject Input -->
+                <div class="flex flex-col">
+                    <label for="subject" class="text-lg font-semibold">Subject:</label>
+                    <input type="text" name="subject" id="subject" placeholder="Enter the subject"
+                        class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                        required>
+                </div>
+
+
+                <!-- Description Input -->
+                <div class="flex flex-col">
+                    <label for="description" class="text-lg font-semibold">Description:</label>
+                    <textarea name="description" id="description" placeholder="Provide details"
+                        class="px-4 py-2 bg-[#1c1c1c] text-green-400 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500 h-32"
+                        required></textarea>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit"
+                        class="bg-green-600 hover:bg-green-500 text-white font-semibold py-3 px-6 rounded-lg w-full mt-4">Submit</button>
+                </div>
+            </form>
+
+            <!-- Message Output -->
+            <div class="mt-8 text-center">
+                <p class="text-green-400">{{ message }}</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
